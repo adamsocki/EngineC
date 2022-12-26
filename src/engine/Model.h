@@ -8,7 +8,7 @@ MemoryArena modelArena = {};
 
 struct Model
 {
-    int32 vaoID;
+    GLuint vaoID;
     int32 vertexCount;
 
     real32* positions;

@@ -5,8 +5,8 @@ void storeDataInAttributeList(int32 attributeNumber, real32 *data, int32 size, D
     glGenBuffers(1, &vboID);
     PushBack(&vbos, vboID);
     glBindBuffer(GL_ARRAY_BUFFER, vboID); 
-    glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
-    glVertexAttribPointer(attributeNumber, 3, GL_FLOAT, false, 0, 0);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * size, data, GL_STATIC_DRAW);
+    glVertexAttribPointer(attributeNumber, 3, GL_FLOAT, false, 0, (void*)0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
@@ -39,7 +39,6 @@ void CleanUp(DynamicArray<GLuint> vaos, DynamicArray<GLuint> vbos)
         glDeleteBuffers(1, &vbos[i]);
     }
 }
-
 
 
 void LoadToVAO(Model* model, real32* positions, int32 size, DynamicArray<GLuint> vaos, DynamicArray<GLuint> vbos)

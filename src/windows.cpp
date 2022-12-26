@@ -387,10 +387,10 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmndL
 
 
     if (!gotConfigFile) {
-        //Game->screenWidth = 1600;
-        //Game->screenHeight = 900;
-        Game->screenWidth = horizontal;
-        Game->screenHeight = vertical;
+        Game->screenWidth = 1600;
+        Game->screenHeight = 900;
+        //Game->screenWidth = horizontal;
+        //Game->screenHeight = vertical;
 
         Game->audioPlayer.volume = 1.0f;
         Game->networkInfo.serverIPString = "192.0.0.1"; // @NOTE: this is just the IP address referring to yourself
@@ -416,8 +416,8 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmndL
 
     
     DWORD dwExStyle = 0; WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;
-    //DWORD dwStyle = WS_OVERLAPPEDWINDOW & ~WS_SIZEBOX & ~WS_MAXIMIZEBOX & ~WS_BORDER;
-    DWORD dwStyle = WS_POPUPWINDOW & ~WS_SIZEBOX & ~WS_MAXIMIZEBOX & ~WS_BORDER;
+    DWORD dwStyle = WS_OVERLAPPEDWINDOW & ~WS_SIZEBOX & ~WS_MAXIMIZEBOX & ~WS_BORDER;
+  //  DWORD dwStyle = WS_POPUPWINDOW & ~WS_SIZEBOX & ~WS_MAXIMIZEBOX & ~WS_BORDER;
 
     RECT windowRect;
     windowRect.left = 0;

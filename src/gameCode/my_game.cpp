@@ -23,8 +23,7 @@ void MyInit()
     -0.5f, 0.5f, 0
   };
 
-    LoadToVAO(&modelToRender, vertices, 18, vaos, vbos);
-    CleanUp(vaos, vbos);
+    LoadToVAO(&modelToRender, vertices, 6, vaos, vbos);
 }
 
 void MyGameUpdate()
@@ -32,5 +31,6 @@ void MyGameUpdate()
     // render a box
 
     PrepareRenderer();
-   // Render(&modelToRender);
+    Render(&modelToRender);
+ //   CleanUp(vaos, vbos);
 }
