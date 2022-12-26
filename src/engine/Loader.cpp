@@ -1,11 +1,21 @@
 
-void storeDataInAttributeList(int32 attributeNumber, real32 *data, int32 size, DynamicArray<GLuint> vbos)
+void bindIndicesBuffer(int32* indices, int32 count, DynamicArray<GLuint> vbos)
+{
+    GLuint vboID;
+    glGenBuffers(1, &vboID);
+    PushBack(&vbos, vboID);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vboID);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int32) * count, indices, GL_STATIC_DRAW);
+}
+
+
+void storeDataInAttributeList(int32 attributeNumber, real32 *data, int32 count, DynamicArray<GLuint> vbos)
 {
     GLuint vboID;
     glGenBuffers(1, &vboID);
     PushBack(&vbos, vboID);
     glBindBuffer(GL_ARRAY_BUFFER, vboID); 
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * size, data, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * count, data, GL_STATIC_DRAW);
     glVertexAttribPointer(attributeNumber, 3, GL_FLOAT, false, 0, (void*)0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
@@ -41,14 +51,15 @@ void CleanUp(DynamicArray<GLuint> vaos, DynamicArray<GLuint> vbos)
 }
 
 
-void LoadToVAO(Model* model, real32* positions, int32 size, DynamicArray<GLuint> vaos, DynamicArray<GLuint> vbos)
+void LoadToVAO(Model* model, real32* positions, int32 sizeVert, int32* indices, int32 indicesCount, DynamicArray<GLuint> vaos, DynamicArray<GLuint> vbos)
 {
     // ** bind VAO
     GLuint vaoID = CreateVAO(vaos);
     model->vaoID = vaoID;
-    model->vertexCount = size;
-    // 
-    storeDataInAttributeList(0, positions, size, vbos);
+    model->vertexCount = sizeVert;
+    // bind Index VBO
+    bindIndicesBuffer(indices, indicesCount, vbos);
+    storeDataInAttributeList(0, positions, sizeVert, vbos);
     // ** unbind VAO
     UnbindVAO();
 }

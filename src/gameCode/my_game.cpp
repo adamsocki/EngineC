@@ -6,24 +6,30 @@
 
 Model modelToRender = {};
 
+DynamicArray<GLuint> vaos;
+DynamicArray<GLuint> vbos;
+
 void MyInit()
 {
 
     AllocateMemoryArena(&modelArena, Megabytes(1));
-
-	DynamicArray<GLuint> vaos = MakeDynamicArray<GLuint>(&modelArena, 1000);
-    DynamicArray<GLuint> vbos = MakeDynamicArray<GLuint>(&modelArena, 1000);
+    vaos = MakeDynamicArray<GLuint>(&modelArena, 1000);
+    vbos = MakeDynamicArray<GLuint>(&modelArena, 1000);
     
     real32 vertices[] = {
-     -0.5f, 0.5f, 0,
+    -0.5f, 0.5f, 0,
     -0.5f, -0.5f, 0,
-     0.5f, -0.5f, 0,
-     0.5f, -0.5f, 0,
-    0.5f, 0.5f, 0,
-    -0.5f, 0.5f, 0
-  };
+    0.5f, -0.5f, 0,
+    0.5f, 0.5f, 0
+   };
 
-    LoadToVAO(&modelToRender, vertices, 6, vaos, vbos);
+
+    int32 indices[] = {
+        0,1,3,
+        3,1,2
+    };
+
+    LoadToVAO(&modelToRender, vertices, 6, indices, 6, vaos, vbos);
 }
 
 void MyGameUpdate()
@@ -33,4 +39,10 @@ void MyGameUpdate()
     PrepareRenderer();
     Render(&modelToRender);
  //   CleanUp(vaos, vbos);
+}
+
+
+void MyGameClose()
+{
+    CleanUp(vaos, vbos);
 }
